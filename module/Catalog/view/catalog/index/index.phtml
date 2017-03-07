@@ -1,0 +1,10 @@
+<h1>Catalog\IndexController::indexAction()</h1>
+
+
+<?php foreach ($this->categories as $category): ?>
+    <article>
+        <h2 id="post<?= $category->getId() ?>"><?= $category->getName() ?></h2>
+
+        <p><?= $category->getDescription() ?></p>
+    </article>
+<?php endforeach ?>
