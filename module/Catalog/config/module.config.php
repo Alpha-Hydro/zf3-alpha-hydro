@@ -10,8 +10,9 @@
 namespace Catalog;
 
 
+use Zend\Router\Http\Regex;
 use Zend\Router\Http\Literal;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Zend\Router\Http\Segment;
 
 return[
     'service_manager' => [
@@ -19,7 +20,6 @@ return[
             Model\MapperInterface::class => Model\CategoriesMapper::class,
         ],
         'factories' => [
-            //Model\CategoriesRepository::class => InvokableFactory::class,
             Model\CategoriesMapper::class => Factory\CategoriesMapperFactory::class
         ],
     ],
@@ -37,6 +37,44 @@ return[
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
+                    ],
+                ],
+                'may_terminate' => true,
+                'child_routes'  => [
+                    'fullPath' => [
+                        'type' => Regex::class,
+                        'options' => [
+                            'regex' => '/(?<path>[\w\-\/]+)',
+                            'defaults' => array(
+                                'action'     => 'index',
+                                'path' => '',
+                            ),
+                            'spec' => '/%path%',
+                        ],
+                    ],
+                    'path' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route'    => '/:path',
+                            'defaults' => [
+                                'action' => 'index',
+                            ],
+                            'constraints' => [
+                                'path' => '[a-z]*',
+                            ],
+                        ],
+                    ],
+                    'list' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route'    => '/:id',
+                            'defaults' => [
+                                'action' => 'index',
+                            ],
+                            'constraints' => [
+                                'id' => '[1-9]\d*',
+                            ],
+                        ],
                     ],
                 ],
             ],

@@ -5,6 +5,16 @@ RewriteCond %{REQUEST_FILENAME} -s [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [L]
+
+# Обязательный слеш в конце пути
+#RewriteCond %{REQUEST_METHOD} GET [NC]
+#RewriteCond %{REQUEST_URI} !/$
+#RewriteCond %{REQUEST_URI} !\.
+#RewriteRule ^.*$ %{REQUEST_URI}/ [R=301,L]
+
+#Убираем слеш в конце пути
+RewriteRule (.+)/$ /$1 [L,R=301]
+
 # The following rewrites all other queries to index.php. The 
 # condition ensures that if you are using Apache aliases to do
 # mass virtual hosting or installed the project in a subdirectory,

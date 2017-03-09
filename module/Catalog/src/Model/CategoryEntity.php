@@ -10,39 +10,51 @@
 namespace Catalog\Model;
 
 
-class Categories
+class CategoryEntity
 {
+    /**
+     * @var int
+     */
     private $id;
-    private $parentId;
-    private $name;
-    private $image;
-    private $description;
-    private $fullPath;
-    private $metaTitle;
-    private $metaDescription;
-    private $metaKeywords;
 
-    public function __construct(
-        $parentId,
-        $name,
-        $image,
-        $description,
-        $fullPath,
-        $metaTitle,
-        $metaDescription,
-        $metaKeywords,
-        $id = null)
-    {
-        $this->parentId = $parentId;
-        $this->name = $name;
-        $this->image = $image;
-        $this->description = $description;
-        $this->fullPath = $fullPath;
-        $this->metaTitle = $metaTitle;
-        $this->metaDescription = $metaDescription;
-        $this->metaKeywords = $metaKeywords;
-        $this->id = $id;
-    }
+    /**
+     * @var int
+     */
+    private $parent_id;
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string
+     */
+    private $image;
+
+    /**
+     * @var string
+     */
+    private $description;
+    /**
+     * @var string
+     */
+    private $full_path;
+
+    /**
+     * @var string
+     */
+    private $meta_title;
+
+    /**
+     * @var string
+     */
+    private $meta_description;
+
+    /**
+     * @var string
+     */
+    private $meta_keywords;
 
     /**
      * @return int
@@ -57,7 +69,7 @@ class Categories
      */
     public function getParentId()
     {
-        return $this->parentId;
+        return $this->parent_id;
     }
 
     /**
@@ -89,7 +101,7 @@ class Categories
      */
     public function getFullPath()
     {
-        return $this->fullPath;
+        return $this->full_path;
     }
 
     /**
@@ -97,7 +109,7 @@ class Categories
      */
     public function getMetaTitle()
     {
-        return $this->metaTitle;
+        return $this->meta_title;
     }
 
     /**
@@ -105,7 +117,7 @@ class Categories
      */
     public function getMetaDescription()
     {
-        return $this->metaDescription;
+        return $this->meta_description;
     }
 
     /**
@@ -113,7 +125,6 @@ class Categories
      */
     public function getMetaKeywords()
     {
-        return $this->metaKeywords;
+        return $this->meta_keywords;
     }
-
 }

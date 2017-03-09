@@ -11,6 +11,7 @@ namespace Catalog\Controller;
 
 
 use Catalog\Model\MapperInterface;
+use Zend\Debug\Debug;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -25,8 +26,21 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
+
+        $path = $this->params()->fromRoute('path');
+
+        try{
+            $categories = $this->categoriesRepository->fetchList(
+                $this->categoriesRepository->fetchByPath($path)->getId()
+            );
+        }
+        catch (\InvalidArgumentException $exception){
+            $categories = $this->categoriesRepository->fetchList();
+        }
+
+
         return new ViewModel([
-            'categories' => $this->categoriesRepository->fetchAll(),
+            'categories' => $categories,
         ]);
     }
 }

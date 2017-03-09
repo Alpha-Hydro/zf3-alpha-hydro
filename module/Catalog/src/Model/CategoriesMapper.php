@@ -31,7 +31,7 @@ class CategoriesMapper implements MapperInterface
     public function __construct(
         AdapterInterface $adapter,
         HydratorInterface $hydrator,
-        Categories $categoriesPrototype
+        CategoryEntity $categoriesPrototype
     )
     {
         $this->db = $adapter;
@@ -67,6 +67,79 @@ class CategoriesMapper implements MapperInterface
         }
 
         return $category;
+    }
+
+    /**
+     * @param $fullPath
+     * @return object
+     */
+    public function fetchByPath($fullPath)
+    {
+        $sql    = new Sql($this->db);
+        $select = $sql->select('categories');
+        $select->where([
+            'full_path = ?' => $fullPath,
+            'active' => 1,
+            'deleted' => 0,
+        ]);
+
+
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+        $result = $stmt->execute();
+
+        if (!$result instanceof ResultInterface || ! $result->isQueryResult()) {
+            throw new RuntimeException(sprintf(
+                'Failed retrieving catalog category with path "%s"; unknown database error.',
+                $fullPath
+            ));
+        }
+
+        $resultSet = new HydratingResultSet($this->hydrator, $this->categoryPrototype);
+        $resultSet->initialize($result);
+        $category = $resultSet->current();
+
+        if (! $category) {
+            throw new InvalidArgumentException(sprintf(
+                'Catalog category with path "%s" not found.',
+                $fullPath
+            ));
+        }
+
+        return $category;
+    }
+
+
+    /**
+     * @param null $parentId
+     * @return array|HydratingResultSet
+     */
+    public function fetchList($parentId = null)
+    {
+        if (is_null($parentId))
+            $parentId = 0;
+
+        $sql    = new Sql($this->db);
+        $select = $sql->select('categories');
+        $select->where([
+            'parent_id = ?' => $parentId,
+            'active' => 1,
+            'deleted' => 0,
+        ]);
+        $select->order('sorting ASC');
+
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+        $result = $stmt->execute();
+
+        if (! $result instanceof ResultInterface || ! $result->isQueryResult()) {
+            return [];
+        }
+
+        $resultSet = new HydratingResultSet(
+            $this->hydrator,
+            $this->categoryPrototype
+        );
+        $resultSet->initialize($result);
+        return $resultSet;
     }
 
     public function fetchAll()

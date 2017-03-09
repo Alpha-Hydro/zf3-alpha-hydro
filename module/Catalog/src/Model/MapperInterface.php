@@ -9,10 +9,30 @@
 
 namespace Catalog\Model;
 
+use Zend\Db\ResultSet\HydratingResultSet;
 
 interface MapperInterface
 {
+    /**
+     * @param $id
+     * @return HydratingResultSet
+     */
     public function fetch($id);
 
+    /**
+     * @param null $parentId
+     * @return HydratingResultSet
+     */
+    public function fetchList($parentId = null);
+
+    /**
+     * @param $fullPath
+     * @return CategoryEntity
+     */
+    public function fetchByPath($fullPath);
+
+    /**
+     * @return mixed
+     */
     public function fetchAll();
 }

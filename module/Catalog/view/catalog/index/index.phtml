@@ -1,10 +1,10 @@
 <h1>Catalog\IndexController::indexAction()</h1>
 
-
 <?php foreach ($this->categories as $category): ?>
     <article>
         <h2 id="post<?= $category->getId() ?>"><?= $category->getName() ?></h2>
-
-        <p><?= $category->getDescription() ?></p>
+        <p><a href="/catalog/<?= $category->getFullPath() ?>"><?=$category->getFullPath()?></a></p>
+        <!--<p><a href="<?/*= $this->url('catalog/fullPath',['path' => $this->escapeHtml($category->getFullPath())], false) */?>"><?/*=$category->getFullPath()*/?></a></p>-->
+        <p><?= $category->getImage() ?></p>
     </article>
 <?php endforeach ?>

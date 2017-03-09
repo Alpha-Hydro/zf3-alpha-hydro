@@ -10,8 +10,8 @@
 namespace Catalog\Factory;
 
 
-use Catalog\Model\Categories;
 use Catalog\Model\CategoriesMapper;
+use Catalog\Model\CategoryEntity;
 use Interop\Container\ContainerInterface;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Hydrator\Reflection as ReflectionHydrator;
@@ -24,7 +24,7 @@ class CategoriesMapperFactory implements FactoryInterface
         return new CategoriesMapper(
             $container->get(AdapterInterface::class),
             new ReflectionHydrator(),
-            new Categories('', '', '', '', '', '', '', '', '')
+            new CategoryEntity()
         );
     }
 }
