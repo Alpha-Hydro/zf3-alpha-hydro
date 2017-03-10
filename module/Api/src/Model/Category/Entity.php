@@ -31,4 +31,13 @@ class Entity
      * @var string
      */
     public $full_path;
+
+
+    public function exchageArray(array $data)
+    {
+        $this->id = !empty($data['id']) ? $data['id'] : null;
+        $this->parent_id = !empty($data['parent_id']) ? $data['parent_id'] : null;
+        $this->name = !empty($data['name']) ? $data['name'] : null;
+        $this->full_path = !empty($data['full_path']) ? $data['full_path'] : null;
+    }
 }
