@@ -9,7 +9,6 @@
 
 namespace Catalog;
 
-
 use Zend\Router\Http\Regex;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
