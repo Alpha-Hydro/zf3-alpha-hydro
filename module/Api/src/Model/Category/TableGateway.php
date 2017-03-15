@@ -11,6 +11,7 @@ namespace Api\Model\Category;
 
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\ResultSet\HydratingResultSet;
+use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway as ZFTableGateway;
 use Zend\Hydrator\ObjectProperty as ObjectPropertyHydrator;
 
@@ -18,7 +19,9 @@ class TableGateway extends ZFTableGateway
 {
     public function __construct($table, AdapterInterface $adapter, $features = null)
     {
-        $resultSetPrototype = new HydratingResultSet(new ObjectPropertyHydrator(), new Entity());
+        //$resultSetPrototype = new HydratingResultSet(new ObjectPropertyHydrator(), new Entity());
+        $resultSetPrototype = new ResultSet();
+        $resultSetPrototype->setArrayObjectPrototype(new Entity());
         parent::__construct($table, $adapter, $features, $resultSetPrototype);
     }
 }

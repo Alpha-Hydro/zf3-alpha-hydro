@@ -12,6 +12,8 @@ namespace Api\Controller;
 
 use Api\Model\Category\MapperInterface;
 use Zend\Mvc\Controller\AbstractRestfulController;
+use Zend\Stdlib\RequestInterface as Request;
+use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\JsonModel;
 
 class CategoriesController extends AbstractRestfulController
@@ -65,6 +67,15 @@ class CategoriesController extends AbstractRestfulController
             'item_count_per_page' => $collections->getItemCountPerPage(),
             'items' => $collections->getCurrentItems(),
         ]);
+    }
+
+    public function getAction()
+    {
+        $id = (!is_null($this->params()->fromRoute('id')))
+            ? $this->params()->fromRoute('id')
+            : 0;
+
+        return new JsonModel((array)$this->categories->fetch($id));
     }
 
 }

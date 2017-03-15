@@ -14,8 +14,17 @@ namespace Api\Model\Product;
 
 class Product
 {
+    /**
+     * @var int
+     */
     public $id;
+    /**
+     * @var string
+     */
     public $sku;
+    /**
+     * @var string
+     */
     public $name;
 
     public function exchangeArray(array $data)

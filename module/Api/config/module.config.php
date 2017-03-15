@@ -27,8 +27,10 @@ return [
         ],
     ],
     'controllers' => [
+        '',
         'factories' => [
             Controller\ApiController::class => InvokableFactory::class,
+            Controller\RestController::class => InvokableFactory::class,
             Controller\CategoriesController::class => Factory\CategoriesControllerFactory::class,
             Controller\ProductController::class => Factory\ProductControllerFactory::class,
         ],
@@ -74,6 +76,18 @@ return [
                                 'id'     => '[0-9]+',
                             ],
                         ],
+                    ],
+                ],
+            ],
+            'rest' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/rest[/:id]',
+                    'constraints' => [
+                        'id'     => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\RestController::class,
                     ],
                 ],
             ],

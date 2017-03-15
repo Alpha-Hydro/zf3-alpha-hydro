@@ -33,7 +33,7 @@ class Entity
     public $full_path;
 
 
-    public function exchageArray(array $data)
+    public function exchangeArray(array $data)
     {
         $this->id = !empty($data['id']) ? $data['id'] : null;
         $this->parent_id = !empty($data['parent_id']) ? $data['parent_id'] : null;

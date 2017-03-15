@@ -13,10 +13,16 @@ namespace Api\Controller;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 
-class ApiController extends AbstractRestfulController
+class RestController extends AbstractRestfulController
 {
-    public function indexAction()
+
+    public function getList()
     {
-        return new JsonModel(['Hello' => 'World!']);
+        return new JsonModel(['Hello' => 'List']);
+    }
+
+    public function get($id)
+    {
+        return new JsonModel(['id' => $id]);
     }
 }
