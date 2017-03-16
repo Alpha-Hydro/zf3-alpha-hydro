@@ -7,7 +7,7 @@
  *
  */
 
-namespace Api\Model\Category;
+namespace Api\Model;
 
 
 use Zend\Paginator\Paginator;

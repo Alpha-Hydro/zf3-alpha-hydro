@@ -17,6 +17,12 @@ class ApiController extends AbstractRestfulController
 {
     public function indexAction()
     {
-        return new JsonModel(['Hello' => 'World!']);
+        $entity = preg_replace(
+            " /(?=[A-Z])/",
+            "$1_$2",
+            "uploadPath"
+        );
+
+        return new JsonModel(['Hello' => strtolower($entity)]);
     }
 }

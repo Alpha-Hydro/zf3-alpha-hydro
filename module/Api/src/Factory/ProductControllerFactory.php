@@ -11,7 +11,7 @@ namespace Api\Factory;
 
 
 use Api\Controller\ProductController;
-use Api\Model\Product\ProductTable;
+use Api\Model\Product\Mapper;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
@@ -20,7 +20,7 @@ class ProductControllerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         return new ProductController(
-            $container->get(ProductTable::class)
+            $container->get(Mapper::class)
         );
     }
 }

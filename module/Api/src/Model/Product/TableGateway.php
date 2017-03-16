@@ -13,12 +13,12 @@ use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway as ZFTableGateway;
 
-class ProductTableGateway extends ZFTableGateway
+class TableGateway extends ZFTableGateway
 {
     public function __construct($table, AdapterInterface $adapter, $features = null)
     {
         $resultSetPrototype = new ResultSet();
-        $resultSetPrototype->setArrayObjectPrototype(new Product());
+        $resultSetPrototype->setArrayObjectPrototype(new Entity());
         parent::__construct($table, $adapter, $features, $resultSetPrototype);
     }
 }

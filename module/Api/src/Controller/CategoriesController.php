@@ -10,26 +10,24 @@
 namespace Api\Controller;
 
 
-use Api\Model\Category\MapperInterface;
+use Api\Model\Category\Mapper;
 use Zend\Mvc\Controller\AbstractRestfulController;
-use Zend\Stdlib\RequestInterface as Request;
-use Zend\Stdlib\ResponseInterface as Response;
 use Zend\View\Model\JsonModel;
 
 class CategoriesController extends AbstractRestfulController
 {
-    private $categories;
+    private $mapper;
 
-    public function __construct(MapperInterface $categoriesMapper)
+    public function __construct(Mapper $mapper)
     {
-        $this->categories = $categoriesMapper;
+        $this->mapper = $mapper;
     }
 
     public function indexAction()
     {
         $page_number = $this->params()->fromQuery('page');
 
-        $collections = $this->categories->fetchAll();
+        $collections = $this->mapper->fetchAll();
 
         if (!is_null($page_number))
             $page_number = (int)$page_number;
@@ -53,7 +51,7 @@ class CategoriesController extends AbstractRestfulController
 
         $page_number = $this->params()->fromQuery('page');
 
-        $collections = $this->categories->fetchList($id);
+        $collections = $this->mapper->fetchList($id);
 
         if (!is_null($page_number))
             $page_number = (int)$page_number;
@@ -75,7 +73,7 @@ class CategoriesController extends AbstractRestfulController
             ? $this->params()->fromRoute('id')
             : 0;
 
-        return new JsonModel((array)$this->categories->fetch($id));
+        return new JsonModel((array)$this->mapper->fetch($id));
     }
 
 }

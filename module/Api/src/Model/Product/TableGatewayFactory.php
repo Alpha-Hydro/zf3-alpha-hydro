@@ -13,11 +13,11 @@ use Interop\Container\ContainerInterface;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class ProductTableGatewayFactory implements FactoryInterface
+class TableGatewayFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $dbAdapter = $container->get(AdapterInterface::class);
-        return new ProductTableGateway('products', $dbAdapter);
+        return new TableGateway('products', $dbAdapter);
     }
 }

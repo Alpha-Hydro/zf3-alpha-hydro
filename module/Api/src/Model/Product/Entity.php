@@ -7,8 +7,7 @@
  *
  */
 
-namespace Api\Model\Category;
-
+namespace Api\Model\Product;
 
 use Api\Model\AbstractEntityTableGateway;
 
@@ -20,14 +19,39 @@ class Entity extends AbstractEntityTableGateway
     public $id;
 
     /**
-     * @var int
+     * @var string
      */
-    public $parentId;
+    public $sku;
 
     /**
      * @var string
      */
     public $name;
+
+    /**
+     * @var string
+     */
+    public $image;
+
+    /**
+     * @var string
+     */
+    public $uploadPath;
+
+    /**
+     * @var string
+     */
+    public $draft;
+
+    /**
+     * @var string
+     */
+    public $uploadPathDraft;
+
+    /**
+     * @var string
+     */
+    public $note;
 
     /**
      * @var string

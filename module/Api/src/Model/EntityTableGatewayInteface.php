@@ -7,12 +7,10 @@
  *
  */
 
-namespace Api\Model\Category;
+namespace Api\Model;
 
 
-use Api\Model\ReadingMapperInterface;
-
-interface MapperInterface extends ReadingMapperInterface
+interface EntityTableGatewayInteface
 {
-
+    public function exchangeArray(array $data);
 }

@@ -9,7 +9,6 @@
 
 namespace Api\Model\Category;
 
-
 use Interop\Container\ContainerInterface;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;

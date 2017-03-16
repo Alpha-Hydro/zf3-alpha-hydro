@@ -9,35 +9,12 @@
 
 namespace Api\Model\Category;
 
-use DomainException;
+use Api\Model\AbstractReadMapper;
+use Api\Model\Collection;
 use Zend\Paginator\Adapter\DbTableGateway;
 
-class Mapper implements MapperInterface
+class Mapper extends AbstractReadMapper
 {
-
-    /**
-     * @var TableGateway
-     */
-    private $table;
-
-    public function __construct(TableGateway $tableGateway)
-    {
-        $this->table = $tableGateway;
-    }
-
-    /**
-     * @param $id
-     * @return array|\ArrayObject|null
-     */
-    public function fetch($id)
-    {
-        $resultSet = $this->table->select(['id' => $id]);
-
-        if (0 === count($resultSet)) {
-            throw new DomainException('Status message not found', 404);
-        }
-        return $resultSet->current();
-    }
 
     /**
      * @param $parentId
@@ -47,7 +24,7 @@ class Mapper implements MapperInterface
     {
         return new Collection(
             new DbTableGateway(
-                $this->table,
+                $this->tableGateway,
                 [
                     'active != ?' => 0,
                     'deleted != ?' => 1,
@@ -57,11 +34,4 @@ class Mapper implements MapperInterface
             ));
     }
 
-    /**
-     * @return Collection
-     */
-    public function fetchAll()
-    {
-        return new Collection(new DbTableGateway($this->table, null, ['sorting' => 'ASC']));
-    }
 }

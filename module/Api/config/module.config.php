@@ -9,21 +9,19 @@
 
 namespace Api;
 
+use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'service_manager' => [
-        'aliases' => [
-            Model\Category\MapperInterface::class => Model\Category\Mapper::class,
-        ],
         'factories' => [
             //Categories
             Model\Category\Mapper::class => Model\Category\MapperFactory::class,
             Model\Category\TableGateway::class => Model\Category\TableGatewayFactory::class,
             //Products
-            Model\Product\ProductTable::class => Model\Product\ProductTableFactory::class,
-            Model\Product\ProductTableGateway::class => Model\Product\ProductTableGatewayFactory::class,
+            Model\Product\Mapper::class => Model\Product\MapperFactory::class,
+            Model\Product\TableGateway::class => Model\Product\TableGatewayFactory::class,
         ],
     ],
     'controllers' => [
@@ -39,7 +37,7 @@ return [
     'router' => [
         'routes' => [
             'api' => [
-                'type'    => Segment::class,
+                'type'    => Literal::class,
                 'options' => [
                     'route' => '/api',
                     'defaults' => [
@@ -100,9 +98,5 @@ return [
         'display_not_found_reason' => true,
         'display_exceptions' => true,
         'doctype' => 'HTML5',
-
-        /*'template_path_stack' => [
-            'album' => __DIR__ . '/../view',
-        ],*/
     ],
 ];

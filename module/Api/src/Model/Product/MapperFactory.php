@@ -9,15 +9,14 @@
 
 namespace Api\Model\Product;
 
-
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class ProductTableFactory implements FactoryInterface
+class MapperFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $tableGateway = $container->get(ProductTableGateway::class);
-        return new ProductTable($tableGateway);
+        $tableGateway = $container->get(TableGateway::class);
+        return new Mapper($tableGateway);
     }
 }
