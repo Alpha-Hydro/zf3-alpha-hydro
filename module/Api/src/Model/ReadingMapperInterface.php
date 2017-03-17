@@ -10,7 +10,7 @@
 namespace Api\Model;
 
 
-use Api\Model\Category\Collection;
+use Zend\Db\ResultSet\ResultSet;
 
 interface ReadingMapperInterface
 {
@@ -22,12 +22,12 @@ interface ReadingMapperInterface
 
     /**
      * @param $parentId
-     * @return Collection
+     * @return Collection | ResultSet
      */
     public function fetchList($parentId);
 
     /**
-     * @return Collection
+     * @return Collection | ResultSet
      */
     public function fetchAll();
 

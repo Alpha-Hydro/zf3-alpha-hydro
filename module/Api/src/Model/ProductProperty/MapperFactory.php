@@ -7,22 +7,17 @@
  *
  */
 
-namespace Api\Factory;
+namespace Api\Model\ProductProperty;
 
 
-use Api\Controller\ProductController;
-use Api\Model\Product\Mapper;
-use Api\Model\ProductProperty\Mapper as PropertyMapper;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class ProductControllerFactory implements FactoryInterface
+class MapperFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new ProductController(
-            $container->get(Mapper::class),
-            $container->get(PropertyMapper::class)
-        );
+        $tableGateway = $container->get(TableGateway::class);
+        return new Mapper($tableGateway);
     }
 }

@@ -22,6 +22,9 @@ return [
             //Products
             Model\Product\Mapper::class => Model\Product\MapperFactory::class,
             Model\Product\TableGateway::class => Model\Product\TableGatewayFactory::class,
+            //ProductProperty
+            Model\ProductProperty\Mapper::class => Model\ProductProperty\MapperFactory::class,
+            Model\ProductProperty\TableGateway::class => Model\ProductProperty\TableGatewayFactory::class,
         ],
     ],
     'controllers' => [

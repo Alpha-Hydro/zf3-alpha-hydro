@@ -11,17 +11,21 @@ namespace Api\Controller;
 
 
 use Api\Model\Product\Mapper;
+use Api\Model\ProductProperty\Mapper as PropertyMapper;
 use Zend\Debug\Debug;
+use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 
-class ProductController extends AbstractRestfulController
+class ProductController extends AbstractActionController
 {
     private $mapper;
+    private $propertyMapper;
 
-    public function __construct(Mapper $mapper)
+    public function __construct(Mapper $mapper, PropertyMapper $propertyMapper)
     {
         $this->mapper = $mapper;
+        $this->propertyMapper = $propertyMapper;
     }
 
     public function indexAction()
@@ -33,7 +37,6 @@ class ProductController extends AbstractRestfulController
         if (!is_null($page_number))
             $page_number = (int)$page_number;
         $collections->setCurrentPageNumber($page_number);
-
 
         return new JsonModel([
             'pages' => $collections->count(),
@@ -54,9 +57,10 @@ class ProductController extends AbstractRestfulController
 
         $collections = $this->mapper->fetchList($id);
 
-        if (!is_null($page_number))
+        if (!is_null($page_number)){
             $page_number = (int)$page_number;
-        $collections->setCurrentPageNumber($page_number);
+            $collections->setCurrentPageNumber($page_number);
+        }
 
 
         return new JsonModel([
@@ -75,5 +79,22 @@ class ProductController extends AbstractRestfulController
             : 0;
 
         return new JsonModel((array)$this->mapper->fetch($id));
+    }
+
+    public function propertyAction()
+    {
+        $id = $this->params()->fromRoute('id');
+
+        if (is_null($id)){
+            throw new \DomainException(sprintf(
+                'Could not find row with identifier %d',
+                $id
+            ));
+        }
+
+        $collection = $this->propertyMapper->fetchList($id);
+        $collection->setItemCountPerPage();
+
+        return new JsonModel($collection->getIterator());
     }
 }

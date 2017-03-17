@@ -7,7 +7,8 @@
  *
  */
 
-namespace Api\Model\Product;
+namespace Api\Model\ProductProperty;
+
 
 use Api\Model\AbstractEntityTableGateway;
 
@@ -19,9 +20,9 @@ class Entity extends AbstractEntityTableGateway
     public $id;
 
     /**
-     * @var string
+     * @var int
      */
-    public $sku;
+    public $productId;
 
     /**
      * @var string
@@ -31,32 +32,5 @@ class Entity extends AbstractEntityTableGateway
     /**
      * @var string
      */
-    public $image;
-
-    /**
-     * @var string
-     */
-    public $uploadPath;
-
-    /**
-     * @var string
-     */
-    public $draft;
-
-    /**
-     * @var string
-     */
-    public $uploadPathDraft;
-
-    /**
-     * @var string
-     */
-    public $note;
-
-    /**
-     * @var string
-     */
-    public $fullPath;
-
-    public $properties;
+    public $value;
 }

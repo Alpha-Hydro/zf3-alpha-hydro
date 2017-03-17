@@ -20,7 +20,8 @@
         "zendframework/zend-json": "^3.0",
         "zendframework/zend-debug": "^2.5",
         "zendframework/zend-hydrator": "^2.2",
-        "zendframework/zend-paginator": "^2.7"
+        "zendframework/zend-paginator": "^2.7",
+        "zendframework/zend-eventmanager": "^3.1"
     },
     "autoload": {
         "psr-4": {

@@ -12,29 +12,10 @@ namespace Api\Model\Product;
 
 use Api\Model\AbstractReadMapper;
 use Api\Model\Collection;
-use Api\Model\ReadingMapperInterface;
-use DomainException;
-use Zend\Db\Sql\Select;
 use Zend\Paginator\Adapter\DbSelect;
-use Zend\Paginator\Adapter\DbTableGateway;
 
 class Mapper extends AbstractReadMapper
 {
-    /**
-     * @param $id
-     * @return array|\ArrayObject|null
-     */
-    /*public function fetch($id)
-    {
-        $id = (int) $id;
-        $resultSet = $this->tableGateway->select(['id' => $id]);
-
-        if (0 === count($resultSet)) {
-            throw new DomainException('Status message not found', 404);
-        }
-        return $resultSet->current();
-    }*/
-
     /**
      * @param $category_id
      * @return Collection
