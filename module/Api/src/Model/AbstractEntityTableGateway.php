@@ -23,4 +23,9 @@ abstract class AbstractEntityTableGateway implements EntityTableGatewayInteface
             $this->$propertyName = !empty($data[$name]) ? $data[$name] : null;
         }
     }
+
+    public function getArrayCopy()
+    {
+        return get_object_vars($this);
+    }
 }
