@@ -10,7 +10,7 @@
 namespace Api\Model;
 
 
-use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\ResultSet\HydratingResultSet;
 
 interface ReadingMapperInterface
 {
@@ -22,12 +22,12 @@ interface ReadingMapperInterface
 
     /**
      * @param $parentId
-     * @return Collection | ResultSet
+     * @return Collection | HydratingResultSet
      */
     public function fetchList($parentId);
 
     /**
-     * @return Collection | ResultSet
+     * @return Collection | HydratingResultSet
      */
     public function fetchAll();
 

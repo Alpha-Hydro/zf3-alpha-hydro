@@ -41,6 +41,9 @@ abstract class AbstractReadMapper implements ReadingMapperInterface
         return $resultSet->current();
     }
 
+    /**
+     * @return Collection
+     */
     public function fetchAll()
     {
         return new Collection(

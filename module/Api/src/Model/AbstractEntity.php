@@ -10,7 +10,7 @@
 namespace Api\Model;
 
 
-abstract class AbstractEntityTableGateway implements EntityTableGatewayInteface
+abstract class AbstractEntity implements EntityTableGatewayInteface
 {
     public function exchangeArray(array $data){
         $class = new \ReflectionClass($this);

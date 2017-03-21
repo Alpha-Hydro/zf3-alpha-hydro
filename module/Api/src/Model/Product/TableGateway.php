@@ -10,15 +10,20 @@
 namespace Api\Model\Product;
 
 use Zend\Db\Adapter\AdapterInterface;
-use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Db\TableGateway\TableGateway as ZFTableGateway;
+use Zend\Hydrator\Aggregate\AggregateHydrator;
+use Zend\Hydrator\ArraySerializable;
 
 class TableGateway extends ZFTableGateway
 {
     public function __construct($table, AdapterInterface $adapter, $features = null)
     {
-        $resultSetPrototype = new ResultSet();
-        $resultSetPrototype->setArrayObjectPrototype(new Entity());
+
+        $aggregateHydrator = new AggregateHydrator();
+        $aggregateHydrator->add(new ProductHydrator());
+
+        $resultSetPrototype = new HydratingResultSet($aggregateHydrator, new Entity());
         parent::__construct($table, $adapter, $features, $resultSetPrototype);
     }
 }
