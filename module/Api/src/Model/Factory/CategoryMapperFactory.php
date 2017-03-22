@@ -7,20 +7,24 @@
  *
  */
 
-namespace Api\Factory;
+namespace Api\Model\Factory;
 
-
-use Api\Controller\CategoriesController;
+use Api\Model\Entity\Category;
+use Api\Model\Hydrator\CategoryHydrator;
 use Api\Model\Mapper\CategoryMapper;
 use Interop\Container\ContainerInterface;
+use Zend\Db\Adapter\AdapterInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class CategoriesControllerFactory implements FactoryInterface
+class CategoryMapperFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new CategoriesController(
-            $container->get(CategoryMapper::class)
+        return new CategoryMapper(
+            $container->get(AdapterInterface::class),
+            new CategoryHydrator(),
+            new Category()
         );
     }
+
 }

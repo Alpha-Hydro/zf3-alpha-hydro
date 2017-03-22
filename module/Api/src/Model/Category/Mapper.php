@@ -17,9 +17,9 @@ class Mapper extends AbstractReadMapper
 {
 
     /**
-     * @param $parentId
-     * @return Collection
-     */
+ * @param $parentId
+ * @return Collection
+ */
     public function fetchList($parentId)
     {
         return new Collection(

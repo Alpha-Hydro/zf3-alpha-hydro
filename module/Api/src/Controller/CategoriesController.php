@@ -10,7 +10,8 @@
 namespace Api\Controller;
 
 
-use Api\Model\Category\Mapper;
+use Api\Model\Mapper\CategoryMapper;
+use Zend\Debug\Debug;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 
@@ -18,7 +19,7 @@ class CategoriesController extends AbstractRestfulController
 {
     private $mapper;
 
-    public function __construct(Mapper $mapper)
+    public function __construct(CategoryMapper $mapper)
     {
         $this->mapper = $mapper;
     }
@@ -53,6 +54,8 @@ class CategoriesController extends AbstractRestfulController
 
         $collections = $this->mapper->fetchList($id);
 
+        //Debug::dump($collections); die();
+
         if (!is_null($page_number))
             $page_number = (int)$page_number;
         $collections->setCurrentPageNumber($page_number);
@@ -73,7 +76,8 @@ class CategoriesController extends AbstractRestfulController
             ? $this->params()->fromRoute('id')
             : 0;
 
-        return new JsonModel((array)$this->mapper->fetch($id));
+        //Debug::dump($this->mapper->fetch($id)); die();
+        return new JsonModel($this->mapper->fetch($id));
     }
 
 }

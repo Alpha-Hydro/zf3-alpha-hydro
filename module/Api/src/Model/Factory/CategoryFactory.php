@@ -7,20 +7,17 @@
  *
  */
 
-namespace Api\Factory;
+namespace Api\Model\Factory;
 
 
-use Api\Controller\CategoriesController;
-use Api\Model\Mapper\CategoryMapper;
+use Api\Model\Entity\Category;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class CategoriesControllerFactory implements FactoryInterface
+class CategoryFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new CategoriesController(
-            $container->get(CategoryMapper::class)
-        );
+        return new Category();
     }
 }

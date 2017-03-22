@@ -19,6 +19,8 @@ return [
             //Categories
             Model\Category\Mapper::class => Model\Category\MapperFactory::class,
             Model\Category\TableGateway::class => Model\Category\TableGatewayFactory::class,
+            Model\Entity\Category::class => Model\Factory\CategoryFactory::class,
+            Model\Mapper\CategoryMapper::class => Model\Factory\CategoryMapperFactory::class,
             //Products
             Model\Product\Mapper::class => Model\Product\MapperFactory::class,
             Model\Product\TableGateway::class => Model\Product\TableGatewayFactory::class,
@@ -28,7 +30,6 @@ return [
         ],
     ],
     'controllers' => [
-        '',
         'factories' => [
             Controller\ApiController::class => InvokableFactory::class,
             Controller\RestController::class => InvokableFactory::class,
