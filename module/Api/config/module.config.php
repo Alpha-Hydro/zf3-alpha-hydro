@@ -17,13 +17,17 @@ return [
     'service_manager' => [
         'factories' => [
             //Categories
-            Model\Category\Mapper::class => Model\Category\MapperFactory::class,
-            Model\Category\TableGateway::class => Model\Category\TableGatewayFactory::class,
+            //Model\Category\Mapper::class => Model\Category\MapperFactory::class,
+            //Model\Category\TableGateway::class => Model\Category\TableGatewayFactory::class,
             Model\Entity\Category::class => Model\Factory\CategoryFactory::class,
             Model\Mapper\CategoryMapper::class => Model\Factory\CategoryMapperFactory::class,
+            Model\Hydrator\CategoryHydrator::class => Model\Factory\CategoryHydratorFactory::class,
             //Products
-            Model\Product\Mapper::class => Model\Product\MapperFactory::class,
-            Model\Product\TableGateway::class => Model\Product\TableGatewayFactory::class,
+            //Model\Product\Mapper::class => Model\Product\MapperFactory::class,
+            //Model\Product\TableGateway::class => Model\Product\TableGatewayFactory::class,
+            Model\Entity\Product::class => Model\Factory\ProductFactory::class,
+            Model\Mapper\ProductMapper::class => Model\Factory\ProductMapperFactory::class,
+            Model\Hydrator\ProductHydrator::class => Model\Factory\CategoryHydratorFactory::class,
             //ProductProperty
             Model\ProductProperty\Mapper::class => Model\ProductProperty\MapperFactory::class,
             Model\ProductProperty\TableGateway::class => Model\ProductProperty\TableGatewayFactory::class,

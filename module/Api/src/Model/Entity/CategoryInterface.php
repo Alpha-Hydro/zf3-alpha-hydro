@@ -42,4 +42,17 @@ interface CategoryInterface
      */
     public function getFullPath();
 
+
+    /**
+     * @param array $products
+     * @return Category
+     */
+    public function setProducts($products);
+
+    /**
+     * @param array $subcategories
+     * @return Category
+     */
+    public function setSubcategories($subcategories);
+
 }

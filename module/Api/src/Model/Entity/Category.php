@@ -42,9 +42,15 @@ class Category extends AbstractEntity implements CategoryInterface
     public $full_path;
 
     /**
-     * @var string
+     * @var array
      */
     public $products;
+
+    /**
+     * @var array
+     */
+    public $subcategories;
+
 
     /**
      * @return int
@@ -95,10 +101,40 @@ class Category extends AbstractEntity implements CategoryInterface
     }
 
     /**
-     * @param mixed $products
+     * @param array $products
+     * @return Category
      */
     public function setProducts($products)
     {
         $this->products = $products;
+        return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSubcategories()
+    {
+        return $this->subcategories;
+    }
+
+    /**
+     * @param array $subcategories
+     * @return Category
+     */
+    public function setSubcategories($subcategories)
+    {
+        $this->subcategories = $subcategories;
+        return $this;
+    }
+
+
 }

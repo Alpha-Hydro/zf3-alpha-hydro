@@ -10,10 +10,10 @@
 namespace Api\Model\Hydrator;
 
 use Api\Model\Entity\CategoryInterface;
-use Zend\Hydrator\HydratorInterface;
+use Zend\Debug\Debug;
 use Zend\Hydrator\Reflection as ReflectionHydrator;
 
-class CategoryHydrator extends ReflectionHydrator implements HydratorInterface
+class CategoryHydrator extends ReflectionHydrator
 {
     public function hydrate(array $data, $object)
     {
@@ -21,7 +21,8 @@ class CategoryHydrator extends ReflectionHydrator implements HydratorInterface
             return $object;
 
         //if (array_key_exists('products', $data))
-        $object->products = "count products in category";
+        $object->setProducts(['count' => 'count products']);
+        $object->setSubcategories(['count' => 'count subcategories']);
 
         parent::hydrate($data, $object);
 

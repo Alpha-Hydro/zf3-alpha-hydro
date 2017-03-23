@@ -50,24 +50,7 @@ class CategoriesController extends AbstractRestfulController
             ? $this->params()->fromRoute('id')
             : 0;
 
-        $page_number = $this->params()->fromQuery('page');
-
-        $collections = $this->mapper->fetchList($id);
-
-        //Debug::dump($collections); die();
-
-        if (!is_null($page_number))
-            $page_number = (int)$page_number;
-        $collections->setCurrentPageNumber($page_number);
-
-
-        return new JsonModel([
-            'pages' => $collections->count(),
-            'total_item_count' => $collections->getTotalItemCount(),
-            'current_page' => $collections->getCurrentPageNumber(),
-            'item_count_per_page' => $collections->getItemCountPerPage(),
-            'items' => $collections->getCurrentItems(),
-        ]);
+        return new JsonModel($this->mapper->fetchList($id));
     }
 
     public function getAction()
@@ -76,7 +59,6 @@ class CategoriesController extends AbstractRestfulController
             ? $this->params()->fromRoute('id')
             : 0;
 
-        //Debug::dump($this->mapper->fetch($id)); die();
         return new JsonModel($this->mapper->fetch($id));
     }
 
