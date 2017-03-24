@@ -9,21 +9,21 @@
 
 namespace Api\Model\Hydrator;
 
-use Api\Model\Entity\CategoryInterface;
-use Zend\Debug\Debug;
+
+use Api\Model\Entity\ProductPropertyInterface;
 use Zend\Hydrator\Reflection as ReflectionHydrator;
 
-class CategoryHydrator extends ReflectionHydrator
+class ProductPropertyHydrator extends ReflectionHydrator
 {
     public function hydrate(array $data, $object)
     {
-        if (!$object instanceof CategoryInterface)
+        if (!$object instanceof ProductPropertyInterface)
             return $object;
 
+        //Debug::dump($data); die();
 
         parent::hydrate($data, $object);
 
         return $object;
     }
-
 }

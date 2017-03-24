@@ -19,18 +19,20 @@ return [
             //Categories
             //Model\Category\Mapper::class => Model\Category\MapperFactory::class,
             //Model\Category\TableGateway::class => Model\Category\TableGatewayFactory::class,
-            Model\Entity\Category::class => Model\Factory\CategoryFactory::class,
-            Model\Mapper\CategoryMapper::class => Model\Factory\CategoryMapperFactory::class,
-            Model\Hydrator\CategoryHydrator::class => Model\Factory\CategoryHydratorFactory::class,
+            Model\Entity\Category::class => Model\Entity\CategoryFactory::class,
+            Model\Mapper\CategoryMapper::class => Model\Mapper\CategoryMapperFactory::class,
+            Model\Hydrator\CategoryHydrator::class => Model\Hydrator\CategoryHydratorFactory::class,
             //Products
             //Model\Product\Mapper::class => Model\Product\MapperFactory::class,
             //Model\Product\TableGateway::class => Model\Product\TableGatewayFactory::class,
-            Model\Entity\Product::class => Model\Factory\ProductFactory::class,
-            Model\Mapper\ProductMapper::class => Model\Factory\ProductMapperFactory::class,
-            Model\Hydrator\ProductHydrator::class => Model\Factory\CategoryHydratorFactory::class,
+            Model\Entity\Product::class => Model\Entity\ProductFactory::class,
+            Model\Mapper\ProductMapper::class => Model\Mapper\ProductMapperFactory::class,
+            Model\Hydrator\ProductHydrator::class => Model\Hydrator\ProductHydratorFactory::class,
             //ProductProperty
-            Model\ProductProperty\Mapper::class => Model\ProductProperty\MapperFactory::class,
-            Model\ProductProperty\TableGateway::class => Model\ProductProperty\TableGatewayFactory::class,
+            Model\Entity\ProductProperty::class => Model\Entity\ProductPropertyFactory::class,
+            Model\Hydrator\ProductPropertyHydrator::class => Model\Hydrator\ProductPropertyHydratorFactory::class,
+            Model\Mapper\ProductPropertyMapper::class => Model\Mapper\ProductPropertyMapperFactory::class,
+            //Model\ProductProperty\TableGateway::class => Model\ProductProperty\TableGatewayFactory::class,
         ],
     ],
     'controllers' => [

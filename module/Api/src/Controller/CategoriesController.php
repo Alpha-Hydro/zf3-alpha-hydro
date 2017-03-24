@@ -28,7 +28,7 @@ class CategoriesController extends AbstractRestfulController
     {
         $page_number = $this->params()->fromQuery('page');
 
-        $collections = $this->mapper->fetchAll();
+        $collections = $this->mapper->fetchAll(true);
 
         if (!is_null($page_number))
             $page_number = (int)$page_number;
@@ -59,7 +59,7 @@ class CategoriesController extends AbstractRestfulController
             ? $this->params()->fromRoute('id')
             : 0;
 
-        return new JsonModel($this->mapper->fetch($id));
+        return new JsonModel($this->mapper->fetch($id, true));
     }
 
 }

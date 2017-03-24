@@ -9,20 +9,20 @@
 
 namespace Api\Model\Mapper;
 
+
 use Api\Model\Collection;
-use Api\Model\Entity\Category;
+use Api\Model\Entity\ProductProperty;
 use Api\Model\ReadingMapperInterface;
 use InvalidArgumentException;
 use RuntimeException;
-use Zend\Db\Adapter\Adapter;
+use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Db\Sql\Sql;
 use Zend\Hydrator\HydratorInterface;
 use Zend\Paginator\Adapter\ArrayAdapter;
-use Zend\Paginator\Adapter\DbSelect;
 
-class CategoryMapper implements ReadingMapperInterface
+class ProductPropertyMapper implements ReadingMapperInterface
 {
     private $db;
 
@@ -31,9 +31,9 @@ class CategoryMapper implements ReadingMapperInterface
     private $entityPrototype;
 
     public function __construct(
-        Adapter $adapter,
+        AdapterInterface $adapter,
         HydratorInterface $hydrator,
-        Category $entityPrototype
+        ProductProperty $entityPrototype
     )
     {
         $this->db = $adapter;
@@ -44,15 +44,16 @@ class CategoryMapper implements ReadingMapperInterface
     public function fetch($id, $isArray = false)
     {
         $sql       = new Sql($this->db);
-        $select    = $sql->select('categories');
-        $select->where(['id = ?' => $id]);
+        $select    = $sql->select('product_params');
+        $select
+            ->where(['id = ?' => $id]);
 
         $statement = $sql->prepareStatementForSqlObject($select);
         $result    = $statement->execute();
 
         if (!$result instanceof ResultInterface || ! $result->isQueryResult()) {
             throw new RuntimeException(sprintf(
-                'Failed retrieving catalog category with identifier "%s"; unknown database error.',
+                'Failed retrieving product property with identifier "%s"; unknown database error.',
                 $id
             ));
         }
@@ -60,16 +61,14 @@ class CategoryMapper implements ReadingMapperInterface
         $resultSet = new HydratingResultSet($this->hydrator, $this->entityPrototype);
         $resultSet->initialize($result);
 
-        if ($isArray){
+        if($isArray)
             return array_shift($resultSet->toArray());
-        }
 
         $resultSetItem = $resultSet->current();
 
-
         if (!$resultSetItem) {
             throw new InvalidArgumentException(sprintf(
-                'Catalog category with identifier "%s" not found.',
+                'Product property with identifier "%s" not found.',
                 $id
             ));
         }
@@ -77,25 +76,13 @@ class CategoryMapper implements ReadingMapperInterface
         return $resultSetItem;
     }
 
-
-    /**
-     * @param null $parentId
-     * @param bool $isCollection
-     * @return Collection|array|HydratingResultSet
-     */
-    public function fetchList($parentId = null, $isCollection = false)
+    public function fetchList($product_id, $isCollection = false)
     {
-        if (is_null($parentId))
-            $parentId = 0;
-
         $sql    = new Sql($this->db);
-        $select = $sql->select('categories');
-        $select->where([
-            'parent_id = ?' => $parentId,
-            'active' => 1,
-            'deleted' => 0,
-        ]);
-        $select->order('sorting ASC');
+        $select = $sql->select('product_params');
+        $select
+            ->where(['product_id' => $product_id])
+            ->order('order ASC');
 
         $stmt   = $sql->prepareStatementForSqlObject($select);
         $result = $stmt->execute();
@@ -117,15 +104,10 @@ class CategoryMapper implements ReadingMapperInterface
         return $resultSet;
     }
 
-
-    /**
-     * @param bool $isCollection
-     * @return Collection|array|HydratingResultSet
-     */
     public function fetchAll($isCollection = false)
     {
         $sql    = new Sql($this->db);
-        $select = $sql->select('categories');
+        $select = $sql->select('product_params');
 
         $stmt   = $sql->prepareStatementForSqlObject($select);
         $result = $stmt->execute();
@@ -146,4 +128,6 @@ class CategoryMapper implements ReadingMapperInterface
 
         return $resultSet;
     }
+
+
 }

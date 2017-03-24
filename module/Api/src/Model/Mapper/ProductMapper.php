@@ -15,12 +15,12 @@ use Api\Model\Entity\Product;
 use Api\Model\ReadingMapperInterface;
 use InvalidArgumentException;
 use RuntimeException;
-use Zend\Db\Adapter\Adapter;
+use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Db\Sql\Sql;
 use Zend\Hydrator\HydratorInterface;
-use Zend\Paginator\Adapter\DbSelect;
+use Zend\Paginator\Adapter\ArrayAdapter;
 
 class ProductMapper implements ReadingMapperInterface
 {
@@ -31,7 +31,7 @@ class ProductMapper implements ReadingMapperInterface
     private $entityPrototype;
 
     public function __construct(
-        Adapter $adapter,
+        AdapterInterface $adapter,
         HydratorInterface $hydrator,
         Product $entityPrototype
     )
@@ -41,7 +41,7 @@ class ProductMapper implements ReadingMapperInterface
         $this->entityPrototype = $entityPrototype;
     }
 
-    public function fetch($id)
+    public function fetch($id, $isArray = false)
     {
         $sql       = new Sql($this->db);
         $select    = $sql->select('products');
@@ -54,27 +54,30 @@ class ProductMapper implements ReadingMapperInterface
 
         if (!$result instanceof ResultInterface || ! $result->isQueryResult()) {
             throw new RuntimeException(sprintf(
-                'Failed retrieving catalog category with identifier "%s"; unknown database error.',
+                'Failed retrieving product with identifier "%s"; unknown database error.',
                 $id
             ));
         }
 
         $resultSet = new HydratingResultSet($this->hydrator, $this->entityPrototype);
         $resultSet->initialize($result);
-        $resultSetItem = $resultSet->current();
 
+        if($isArray)
+            return array_shift($resultSet->toArray());
+
+        $resultSetItem = $resultSet->current();
 
         if (!$resultSetItem) {
             throw new InvalidArgumentException(sprintf(
-                'Catalog category with identifier "%s" not found.',
+                'Product with identifier "%s" not found.',
                 $id
             ));
         }
 
-        return (array)$resultSetItem;
+        return $resultSetItem;
     }
 
-    public function fetchList($parentId = null)
+    public function fetchList($parentId = null, $isCollection = false)
     {
         if (is_null($parentId))
             $parentId = 0;
@@ -104,23 +107,36 @@ class ProductMapper implements ReadingMapperInterface
 
         $resultSet->initialize($result);
 
+        if ($isCollection)
+            return new Collection(new ArrayAdapter($resultSet->toArray()));
+
         return $resultSet;
     }
 
-    public function fetchAll()
+    public function fetchAll($isCollection = false)
     {
         $sql    = new Sql($this->db);
         $select = $sql->select('products');
         $select->join('categories_xref', 'products.id = categories_xref.product_id');
+
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+        $result = $stmt->execute();
+
+        if (! $result instanceof ResultInterface || ! $result->isQueryResult()) {
+            return [];
+        }
 
         $resultSet = new HydratingResultSet(
             $this->hydrator,
             $this->entityPrototype
         );
 
-        $adapter = new DbSelect($select, $this->db, $resultSet);
+        $resultSet->initialize($result);
 
-        return  new Collection($adapter);
+        if ($isCollection)
+            return new Collection(new ArrayAdapter($resultSet->toArray()));
+
+        return $resultSet;
     }
 
 

@@ -10,67 +10,165 @@
 namespace Api\Model\Entity;
 
 
-class Product implements ProductInterface
+use Api\Model\AbstractEntity;
+
+class Product extends AbstractEntity implements ProductInterface
 {
     /**
      * @var int
      */
-    public $id;
+    protected $id;
 
     /**
      * @var string
      */
-    public $sku;
+    protected $sku;
 
     /**
      * @var string
      */
-    public $name;
+    protected $name;
 
     /**
      * @var string
      */
-    public $image;
+    protected $image;
 
     /**
      * @var string
      */
-    public $upload_path;
+    protected $upload_path;
 
     /**
      * @var string
      */
-    public $draft;
+    protected $draft;
 
     /**
      * @var string
      */
-    public $upload_path_draft;
+    protected $upload_path_draft;
 
     /**
      * @var string
      */
-    public $note;
+    protected $note;
 
     /**
      * @var string
      */
-    public $full_path;
+    protected $full_path;
 
     /**
      * @var int
      */
-    public $category_id;
+    protected $category_id;
 
 
     /**
      * @var array
      */
-    public $category;
+    protected $category;
     /**
      * @var array
      */
-    public $properties;
+    protected $properties;
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSku()
+    {
+        return $this->sku;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUploadPath()
+    {
+        return $this->upload_path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDraft()
+    {
+        return $this->draft;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUploadPathDraft()
+    {
+        return $this->upload_path_draft;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullPath()
+    {
+        return $this->full_path;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCategoryId()
+    {
+        return $this->category_id;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @return array
+     */
+    public function getProperties()
+    {
+        return $this->properties;
+    }
 
     /**
      * @param array $properties
@@ -91,6 +189,5 @@ class Product implements ProductInterface
         $this->category = $category;
         return $this;
     }
-
 
 }

@@ -11,7 +11,7 @@ namespace Api\Controller;
 
 
 use Api\Model\Mapper\ProductMapper;
-use Api\Model\ProductProperty\Mapper as PropertyMapper;
+use Api\Model\Mapper\ProductPropertyMapper as PropertyMapper;
 use Zend\Debug\Debug;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
@@ -31,7 +31,7 @@ class ProductController extends AbstractActionController
     {
         $page_number = $this->params()->fromQuery('page');
 
-        $collections = $this->mapper->fetchAll();
+        $collections = $this->mapper->fetchAll(true);
 
         if (!is_null($page_number))
             $page_number = (int)$page_number;
@@ -61,7 +61,7 @@ class ProductController extends AbstractActionController
             ? $this->params()->fromRoute('id')
             : 0;
 
-        return new JsonModel((array)$this->mapper->fetch($id));
+        return new JsonModel((array)$this->mapper->fetch($id, true));
     }
 
     public function propertyAction()
@@ -75,7 +75,7 @@ class ProductController extends AbstractActionController
             ));
         }
 
-        $collection = $this->propertyMapper->fetchList($id);
+        $collection = $this->propertyMapper->fetchList($id, true);
         $collection->setItemCountPerPage();
 
         return new JsonModel($collection->getIterator());

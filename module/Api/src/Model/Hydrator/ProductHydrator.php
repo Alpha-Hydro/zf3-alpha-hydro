@@ -23,7 +23,9 @@ class ProductHydrator extends ReflectionHydrator
 
         //Debug::dump($data); die();
 
-        return parent::hydrate($data, $object);
+        parent::hydrate($data, $object);
+
+        return $object;
     }
 
 }

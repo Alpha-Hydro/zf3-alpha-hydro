@@ -7,7 +7,7 @@
  *
  */
 
-namespace Api\Model\Factory;
+namespace Api\Model\Mapper;
 
 use Api\Model\Entity\Category;
 use Api\Model\Hydrator\CategoryHydrator;

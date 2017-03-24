@@ -9,47 +9,48 @@
 
 namespace Api\Model\Entity;
 
+use Api\Model\AbstractEntity;
 
 class Category extends AbstractEntity implements CategoryInterface
 {
     /**
      * @var int
      */
-    public $id;
+    protected $id;
 
     /**
      * @var int
      */
-    public $parent_id;
+    protected $parent_id;
 
     /**
      * @var string
      */
-    public $name;
+    protected $name;
 
     /**
      * @var string
      */
-    public $image;
+    protected $image;
 
     /**
      * @var string
      */
-    public $description;
+    protected $description;
     /**
      * @var string
      */
-    public $full_path;
+    protected $full_path;
 
     /**
      * @var array
      */
-    public $products;
+    protected $products;
 
     /**
      * @var array
      */
-    public $subcategories;
+    protected $subcategories;
 
 
     /**

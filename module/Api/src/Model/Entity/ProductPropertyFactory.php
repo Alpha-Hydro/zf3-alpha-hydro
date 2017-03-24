@@ -7,19 +7,16 @@
  *
  */
 
-namespace Api\Model\Factory;
+namespace Api\Model\Entity;
 
 
-use Api\Model\Entity\Category;
-use Api\Model\Hydrator\ProductHydrator;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class ProductHydratorFactory implements FactoryInterface
+class ProductPropertyFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new ProductHydrator();
+        return new ProductProperty();
     }
-
 }

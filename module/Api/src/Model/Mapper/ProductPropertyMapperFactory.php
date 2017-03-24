@@ -7,26 +7,23 @@
  *
  */
 
-namespace Api\Model\Factory;
+namespace Api\Model\Mapper;
 
 
-use Api\Model\Entity\Product;
-use Api\Model\Hydrator\CategoryHydrator;
-use Api\Model\Hydrator\ProductHydrator;
-use Api\Model\Mapper\ProductMapper;
+use Api\Model\Entity\ProductProperty;
+use Api\Model\Hydrator\ProductPropertyHydrator;
 use Interop\Container\ContainerInterface;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class ProductMapperFactory implements FactoryInterface
+class ProductPropertyMapperFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new ProductMapper(
+        return new ProductPropertyMapper(
             $container->get(AdapterInterface::class),
-            new ProductHydrator(),
-            new Product()
+            $container->get(ProductPropertyHydrator::class),
+            $container->get(ProductProperty::class)
         );
     }
-
 }
