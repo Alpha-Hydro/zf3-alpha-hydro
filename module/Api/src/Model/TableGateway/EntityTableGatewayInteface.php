@@ -7,12 +7,10 @@
  *
  */
 
-namespace Api\Model\ProductProperty;
+namespace Api\Model\TableGateway;
 
 
-use Zend\Hydrator\ArraySerializable;
-
-class PropertyHydrator extends ArraySerializable
+interface EntityTableGatewayInteface
 {
-
+    public function exchangeArray(array $data);
 }

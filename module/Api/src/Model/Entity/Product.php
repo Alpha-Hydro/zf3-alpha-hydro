@@ -10,9 +10,9 @@
 namespace Api\Model\Entity;
 
 
-use Api\Model\AbstractEntity;
+use Api\Model\TableGateway\AbstractEntityTableGateway;
 
-class Product extends AbstractEntity implements ProductInterface
+class Product extends AbstractEntityTableGateway implements ProductInterface
 {
     /**
      * @var int

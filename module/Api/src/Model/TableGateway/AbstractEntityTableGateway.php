@@ -7,10 +7,10 @@
  *
  */
 
-namespace Api\Model;
+namespace Api\Model\TableGateway;
 
 
-abstract class AbstractEntity implements EntityTableGatewayInteface
+abstract class AbstractEntityTableGateway implements EntityTableGatewayInteface
 {
     public function exchangeArray(array $data){
         $class = new \ReflectionClass($this);
@@ -23,7 +23,7 @@ abstract class AbstractEntity implements EntityTableGatewayInteface
             $propertyName = $property->getName();
             $name = preg_replace("/(?=[A-Z])/", "$1_$2", $propertyName);
             $name = strtolower($name);
-            $this->$propertyName = !empty($data[$name]) ? $data[$name] : null;
+            $this->$propertyName = !empty($data[$propertyName]) ? $data[$propertyName] : null;
         }
     }
 

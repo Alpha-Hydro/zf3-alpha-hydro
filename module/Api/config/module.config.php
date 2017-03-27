@@ -9,6 +9,10 @@
 
 namespace Api;
 
+use Zend\Db\Adapter\AdapterInterface;
+use Zend\Db\ResultSet\HydratingResultSet;
+use Zend\Db\TableGateway\TableGateway;
+use Zend\Hydrator\ArraySerializable;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -17,27 +21,50 @@ return [
     'service_manager' => [
         'factories' => [
             //Categories
-            //Model\Category\Mapper::class => Model\Category\MapperFactory::class,
-            //Model\Category\TableGateway::class => Model\Category\TableGatewayFactory::class,
+            Model\TableGateway\CategoryTable::class => function($container) {
+                $tableGateway = $container->get(Model\CategoryTableGateway::class);
+                return new Model\TableGateway\CategoryTable($tableGateway);
+            },
+            Model\CategoryTableGateway::class => function ($container) {
+                $dbAdapter = $container->get(AdapterInterface::class);
+                $resultSetPrototype = new HydratingResultSet(new ArraySerializable(), new Model\Entity\Category());
+                return new TableGateway('categories', $dbAdapter, null, $resultSetPrototype);
+            },
             Model\Entity\Category::class => Model\Entity\CategoryFactory::class,
             Model\Mapper\CategoryMapper::class => Model\Mapper\CategoryMapperFactory::class,
             Model\Hydrator\CategoryHydrator::class => Model\Hydrator\CategoryHydratorFactory::class,
             //Products
-            //Model\Product\Mapper::class => Model\Product\MapperFactory::class,
-            //Model\Product\TableGateway::class => Model\Product\TableGatewayFactory::class,
+            Model\TableGateway\ProductTable::class => function($container) {
+                $tableGateway = $container->get(Model\ProductTableGateway::class);
+                return new Model\TableGateway\ProductTable($tableGateway);
+            },
+            Model\ProductTableGateway::class => function($container){
+                $dbAdapter = $container->get(AdapterInterface::class);
+                $resultSetPrototype = new HydratingResultSet(new ArraySerializable(), new Model\Entity\Product());
+                return new TableGateway('products', $dbAdapter, null, $resultSetPrototype);
+
+            },
             Model\Entity\Product::class => Model\Entity\ProductFactory::class,
             Model\Mapper\ProductMapper::class => Model\Mapper\ProductMapperFactory::class,
             Model\Hydrator\ProductHydrator::class => Model\Hydrator\ProductHydratorFactory::class,
             //ProductProperty
+            Model\TableGateway\ProductPropertyTable::class => function($container) {
+                $tableGateway = $container->get(Model\ProductPropertyTableGateway::class);
+                return new Model\TableGateway\ProductPropertyTable($tableGateway);
+            },
+            Model\ProductPropertyTableGateway::class => function($container){
+                $dbAdapter = $container->get(AdapterInterface::class);
+                $resultSetPrototype = new HydratingResultSet(new ArraySerializable(), new Model\Entity\ProductProperty());
+                return new TableGateway('products_params', $dbAdapter, null, $resultSetPrototype);
+            },
             Model\Entity\ProductProperty::class => Model\Entity\ProductPropertyFactory::class,
             Model\Hydrator\ProductPropertyHydrator::class => Model\Hydrator\ProductPropertyHydratorFactory::class,
             Model\Mapper\ProductPropertyMapper::class => Model\Mapper\ProductPropertyMapperFactory::class,
-            //Model\ProductProperty\TableGateway::class => Model\ProductProperty\TableGatewayFactory::class,
         ],
     ],
     'controllers' => [
         'factories' => [
-            Controller\ApiController::class => InvokableFactory::class,
+            Controller\ApiController::class => Factory\ApiControllerFactory::class,
             Controller\RestController::class => InvokableFactory::class,
             Controller\CategoriesController::class => Factory\CategoriesControllerFactory::class,
             Controller\ProductController::class => Factory\ProductControllerFactory::class,

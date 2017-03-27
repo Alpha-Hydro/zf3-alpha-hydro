@@ -9,9 +9,10 @@
 
 namespace Api\Model\Entity;
 
-use Api\Model\AbstractEntity;
 
-class Category extends AbstractEntity implements CategoryInterface
+use Api\Model\TableGateway\AbstractEntityTableGateway;
+
+class Category extends AbstractEntityTableGateway implements CategoryInterface
 {
     /**
      * @var int
@@ -136,6 +137,5 @@ class Category extends AbstractEntity implements CategoryInterface
         $this->subcategories = $subcategories;
         return $this;
     }
-
 
 }
