@@ -9,36 +9,51 @@
 
 namespace Api\Model\Entity;
 
-
+use Doctrine\ORM\Mapping as ORM;
 use Api\Model\TableGateway\AbstractEntityTableGateway;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="categories")
+ */
 
 class Category extends AbstractEntityTableGateway implements CategoryInterface
 {
     /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(name="id")
+     *
      * @var int
      */
     protected $id;
 
     /**
+     * @ORM\Column(name="parent_id")
      * @var int
      */
     protected $parent_id;
 
     /**
+     * @ORM\Column(name="name")
      * @var string
      */
     protected $name;
 
     /**
+     * @ORM\Column(name="image")
      * @var string
      */
     protected $image;
 
     /**
+     * @ORM\Column(name="description")
      * @var string
      */
     protected $description;
+
     /**
+     * @ORM\Column(name="full_path")
      * @var string
      */
     protected $full_path;

@@ -10,8 +10,8 @@
 namespace Api\Controller;
 
 
-use Api\Model\Category\CategoryTable;
-use Api\Model\Category\TableGateway;
+//use Api\Model\Category\CategoryTable;
+//use Api\Model\Category\TableGateway;
 use Api\Model\Mapper\CategoryMapper;
 use Zend\Debug\Debug;
 use Zend\Mvc\Controller\AbstractRestfulController;
@@ -21,7 +21,7 @@ class CategoriesController extends AbstractRestfulController
 {
     private $mapper;
 
-    private $tableGateway;
+    //private $tableGateway;
 
     public function __construct(CategoryMapper $mapper)
     {

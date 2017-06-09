@@ -11,6 +11,8 @@
  * file.
  */
 
+use Doctrine\DBAL\Driver\PDOMySql\Driver as PDOMySqlDriver;
+
 return [
     'db' => [
         'driver'         => 'Pdo',
@@ -18,5 +20,16 @@ return [
         'driver_options' => [
             \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
         ]
+    ],
+    'doctrine' => [
+        'connection' => [
+            'orm_default' => [
+                'driverClass' => PDOMySqlDriver::class,
+                'params' => [
+                    'host'     => 'localhost',
+                    'dbname'   => 'db1057313_alphahyd',
+                ]
+            ],
+        ],
     ],
 ];

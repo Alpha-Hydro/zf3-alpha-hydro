@@ -16,6 +16,7 @@ use Zend\Hydrator\ArraySerializable;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 return [
     'service_manager' => [
@@ -68,6 +69,7 @@ return [
             Controller\RestController::class => InvokableFactory::class,
             Controller\CategoriesController::class => Factory\CategoriesControllerFactory::class,
             Controller\ProductController::class => Factory\ProductControllerFactory::class,
+            Controller\DoctrineController::class=>Factory\DoctrineControllerFactory::class,
         ],
     ],
     // The following section is new and should be added to your file:
@@ -126,6 +128,18 @@ return [
                     ],
                 ],
             ],
+            'doctrine' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/doctrine[/:id]',
+                    'constraints' => [
+                        'id'     => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\DoctrineController::class,
+                    ],
+                ],
+            ],
         ],
     ],
     'view_manager' => [
@@ -136,4 +150,18 @@ return [
         'display_exceptions' => true,
         'doctype' => 'HTML5',
     ],
+    'doctrine' => [
+        'driver' => [
+            __NAMESPACE__ . '_driver' => [
+                'class' => AnnotationDriver::class,
+                'cache' => 'array',
+                'paths' => [__DIR__ . '/../src/Model/Entity']
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    __NAMESPACE__ . '\Model\Entity' => __NAMESPACE__ . '_driver'
+                ]
+            ]
+        ]
+    ]
 ];

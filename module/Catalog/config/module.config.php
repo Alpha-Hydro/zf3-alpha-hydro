@@ -19,7 +19,7 @@ return[
             Model\MapperInterface::class => Model\CategoriesMapper::class,
         ],
         'factories' => [
-            Model\CategoriesMapper::class => Factory\CategoriesMapperFactory::class
+            Model\CategoriesMapper::class => Factory\CategoriesMapperFactory::class,
         ],
     ],
     'controllers' => [

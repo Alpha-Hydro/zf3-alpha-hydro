@@ -22,7 +22,7 @@ abstract class AbstractEntityTableGateway implements EntityTableGatewayInteface
 
             $propertyName = $property->getName();
             $name = preg_replace("/(?=[A-Z])/", "$1_$2", $propertyName);
-            $name = strtolower($name);
+            strtolower($name);
             $this->$propertyName = !empty($data[$propertyName]) ? $data[$propertyName] : null;
         }
     }
